@@ -1,0 +1,71 @@
+<div class="row col-md-12">
+    <h4 id="entete" class="col-md-10 text-primary" align="center">Listes des etudiants</h4>
+    <h4 id="entete" class=" col-md-2 text-success" align="center">Ajout Etudiant</h4>
+    <div class="col-md-10">
+        <table class="table table-light">
+            <tbody>
+            <tr class="table-active">
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date de naissance</th>
+                <th>Classe</th>
+                <th>Mise a jour</th>
+                <th>Suppression</th>
+            </tr>
+            <tr *ngFor="let user of data_user">
+                <th>{{ user.nom }}</th>
+                <td>Larry the Bird</td>
+                <td>@twitter</td>
+                <td>@twitter</td>
+                <td><button class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Mettre &agrave; jour</button></td>
+                <td><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button></td>
+            </tr>
+            
+            </tbody>
+        </table>
+        <div class="col-md-4 offset-5" align="center">
+            <nav >
+                <ul class="pagination">
+                  <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active" aria-current="page">
+                    <span class="page-link">2</span>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+    </div>
+    <div id="create_form" class="col-md-2">
+        <form (submit)="insertUser()">
+            <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nom</label>
+            <input type="hidden" class="form-control" id="exampleInputEmail1" [(ngModel)]="id_input_text" name="id_input_text" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="nom_input_text" name="nom_input_text" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Prenom</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="prenom_input_text" name="prenom_input_text" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputEmail1"  class="form-label">Date de naissance</label>
+            <input type="date" class="form-control"[(ngModel)]="date_naissance_input_text" name="date_naissance_input_text" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputEmail1"  class="form-label">Classe</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="classe_input_text" name="classe_input_text" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <button type="submit" id="ajout_button" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+</div>
+  
