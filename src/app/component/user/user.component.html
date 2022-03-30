@@ -8,7 +8,6 @@
         <table class="table table-light">
             <thead>
                 <tr class="table-active">
-                    <th>id</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Date de naissance</th>
@@ -19,7 +18,6 @@
             </thead>
             <tbody *ngIf="!data_is_vide">
             <tr *ngFor="let user of data_user">
-                    <td *ngIf="user!=null">{{ user[0]}}</td>
                     <td *ngIf="user!=null">{{ user[1]}}</td>
                     <td *ngIf="user!=null">{{ user[2]}}</td>
                     <td *ngIf="user!=null">{{ user[3]}}</td>
