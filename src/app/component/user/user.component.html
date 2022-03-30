@@ -1,27 +1,38 @@
 <div class="row col-md-12">
+    <form (submit)="deleteLocalStorage()">
+        <button class="btn btn-link col-md-2 offset-10" type="submit">Supprimmer storage</button>
+    </form>
     <h4 id="entete" class="col-md-10 text-primary" align="center">Listes des etudiants</h4>
     <h4 id="entete" class=" col-md-2 text-success" align="center">Ajout Etudiant</h4>
     <div class="col-md-10">
         <table class="table table-light">
-            <tbody>
-            <tr class="table-active">
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Date de naissance</th>
-                <th>Classe</th>
-                <th>Mise a jour</th>
-                <th>Suppression</th>
-            </tr>
+            <thead>
+                <tr class="table-active">
+                    <th>id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Date de naissance</th>
+                    <th>Classe</th>
+                    <th>Mise a jour</th>
+                    <th>Suppression</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!data_is_vide">
             <tr *ngFor="let user of data_user">
-                <th>{{ user.nom }}</th>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Mettre &agrave; jour</button></td>
-                <td><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Supprimer</button></td>
+                    <td *ngIf="user!=null">{{ user[0]}}</td>
+                    <td *ngIf="user!=null">{{ user[1]}}</td>
+                    <td *ngIf="user!=null">{{ user[2]}}</td>
+                    <td *ngIf="user!=null">{{ user[3]}}</td>
+                    <td *ngIf="user!=null">{{ user[4]}}</td>
+                    <td *ngIf="user!=null"><button class="btn btn-primary" data-toggle="modal" (click)="updateUser(user[0])" data-target="#exampleModalCenter"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Mettre &agrave; jour</button></td>
+                    <td *ngIf="user!=null">
+                        <form (submit)="deleteUser(user[0])">
+                            <button class="btn btn-danger" type="submit" aria-hidden="true"><i class="fa fa-trash-o"></i> Supprimer</button>
+                        </form>
+                    </td>
             </tr>
-            
             </tbody>
+                <h4 *ngIf="data_is_vide" class="text-warning">Aucune donnees disponible</h4>
         </table>
         <div class="col-md-4 offset-5" align="center">
             <nav >
@@ -45,27 +56,59 @@
         <form (submit)="insertUser()">
             <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nom</label>
-            <input type="hidden" class="form-control" id="exampleInputEmail1" [(ngModel)]="id_input_text" name="id_input_text" aria-describedby="emailHelp">
             <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="nom_input_text" name="nom_input_text" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Prenom</label>
             <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="prenom_input_text" name="prenom_input_text" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
             <label for="exampleInputEmail1"  class="form-label">Date de naissance</label>
             <input type="date" class="form-control"[(ngModel)]="date_naissance_input_text" name="date_naissance_input_text" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
             <label for="exampleInputEmail1"  class="form-label">Classe</label>
             <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="classe_input_text" name="classe_input_text" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <button type="submit" id="ajout_button" class="btn btn-primary">Ajouter</button>
         </form>
+    </div>
+    <!-- Modal modification -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modification etudiants</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form (submit)="finalUpdatingUser()">
+            <div class="modal-body">
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="user_to_update[1]" name="nom_input_text" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Prenom</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="user_to_update[2]" name="prenom_input_text" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1"  class="form-label">Date de naissance</label>
+                    <input type="date" class="form-control"[(ngModel)]="user_to_update[3]" name="date_naissance_input_text" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1"  class="form-label">Classe</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="user_to_update[4]" name="classe_input_text" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                </div>
+            </form>
+        </div>
+        </div>
     </div>
 </div>
   
